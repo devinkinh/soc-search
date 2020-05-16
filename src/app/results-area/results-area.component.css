@@ -1,0 +1,10 @@
+.results-sec{
+    padding: 30px;
+    margin: 30px;
+}
+
+.result-list {
+    max-height: 700px;
+    flex-grow: 1;
+    overflow: auto;
+}

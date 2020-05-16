@@ -1,0 +1,20 @@
+
+<mat-card class="results-sec" *ngIf="this.foundUniversities">
+
+    <mat-card-header>
+      <mat-card-title>Matching Universities</mat-card-title>
+    </mat-card-header>
+  
+    <mat-card-content>
+  
+      <mat-action-list class="result-list">
+        <button (click)="displayUniDialog(uni['UNITID']);" mat-list-item *ngFor="let uni of matchedUniversities">
+          <div mat-line>{{uni['INSTNM']}} ({{uni['UNITID']}})</div>
+          <div mat-line> {{uni['ADDR']}} </div>
+        </button>
+      </mat-action-list>
+      
+    </mat-card-content>
+  
+  
+  </mat-card>
