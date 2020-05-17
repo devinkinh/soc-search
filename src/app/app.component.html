@@ -4,7 +4,7 @@
     <div style="width: 40%;">
       <app-search (queryTerm)="populateResultArea($event)"></app-search>
     </div>
-    <div style="width: 40%;" fxFlex="50%" fxFlex.gt-sm="100%">
+    <div fxFlex="50%">
       <app-results-area *ngIf="queryTerm" [queryTerm]="queryTerm"></app-results-area>
     </div>
   </div>

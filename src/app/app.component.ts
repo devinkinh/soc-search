@@ -12,7 +12,6 @@ export class AppComponent {
   title = 'soc-search';
   queryTerm;
   populateResultArea(queryTerm){
-    console.log(queryTerm);
     this.queryTerm = queryTerm;
   }
   constructor(public firestore: AngularFirestore, private http:HttpClient) {

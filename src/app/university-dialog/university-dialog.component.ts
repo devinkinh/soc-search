@@ -7,10 +7,11 @@ import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
   styleUrls: ['./university-dialog.component.css']
 })
 export class UniversityDialogComponent implements OnInit {
-
+  fields;
   constructor(public dialogRef: MatDialogRef<UniversityDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data:any) {
-    console.log(data);
+      this.fields = Object.keys(data); 
+      console.log(data);
   }
 
   onNoClick(): void {
