@@ -52,7 +52,6 @@ def elasticLoad():
     count = 0
     for doc in uni_docs:
         newDoc = doc.to_dict()
-        print(newDoc['UNITID'])
         res = es.update(index="soc-index",doc_type='_doc', id=newDoc['UNITID'], body={'doc':newDoc})
 
     es.indices.refresh(index="soc-index")

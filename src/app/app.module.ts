@@ -29,7 +29,7 @@ import { ResultsAreaComponent } from './results-area/results-area.component';
     AngularFireStorageModule, BrowserAnimationsModule // storage
   ],
   declarations: [ AppComponent, SearchComponent, UniversityDialogComponent, ResultsAreaComponent ],
-  entryComponents: [SearchComponent,UniversityDialogComponent],
+  entryComponents: [SearchComponent,ResultsAreaComponent,UniversityDialogComponent],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

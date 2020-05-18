@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, NgZone } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { UniversityDialogComponent } from '../university-dialog/university-dialog.component';
@@ -10,44 +10,45 @@ import { PageEvent } from '@angular/material/paginator';
   templateUrl: './results-area.component.html',
   styleUrls: ['./results-area.component.css']
 })
-export class ResultsAreaComponent implements OnInit {
-  private _queryTerm: string;
-  cloudData;
-  displayedUnis;
-  uniIndex;
+export class ResultsAreaComponent implements OnInit, OnChanges {
   pageSizeOptions: number[];
   pageEvent: PageEvent;
-  pageIndex=0;
-  length;
+
+  cloudData; displayedUnis; uniIndex; length; loading;
+  testEmitter$;
+
+  pageIndex = 0;
   pageSize = 10;
 
-  constructor(firestore: AngularFirestore, public dialog: MatDialog, public cloud: GetQueryResultsService) {
-    this.uniIndex= {};
-    console.log("get service??");
+  constructor(firestore: AngularFirestore, public dialog: MatDialog,
+    public cloud: GetQueryResultsService, private ngZone: NgZone) {
+    this.uniIndex = {};
+    this.loading = false;
   }
-  get queryTerm () {
-    return this._queryTerm;
-  }
-  @Input()
-  set queryTerm(queryTerm: string) {
-    this._queryTerm = queryTerm;
+  @Input('queryTerm') queryTerm: string;
 
-    this.cloud.elasticSearch(queryTerm).subscribe(res => {
+  ngOnChanges() {
+    this.loading = true;
+    this.cloud.elasticSearch(this.queryTerm).subscribe(res => {
       let n = 0;
-      let uniPage =[];
-      console.log(res);
-      this.length = res.hits.total.value;
-      console.log(this.length);
-      res.hits.hits.forEach((hit,idx) => {
-        uniPage.push(hit._source);
-        if((idx+1)%10 == 0){
-          this.uniIndex[n++] = uniPage;
-          uniPage = [];
+      let uniPage = [];
+      // subscriptions run outside angular zone for some reason
+      this.ngZone.run(() => {
+        this.length = res.hits.total.value;
+        if (this.length == 0) {
+          this.uniIndex = {};
+        } else {
+          res.hits.hits.forEach((hit, idx) => {
+            uniPage.push(hit._source);
+            if ((idx + 1) % 10 == 0) {
+              this.uniIndex[n++] = uniPage;
+              uniPage = [];
+            }
+          });
         }
+        this.loading = false;
       });
-      console.log(this.uniIndex);
     });
-
   }
 
   displayUniDialog(data) {
@@ -55,15 +56,11 @@ export class ResultsAreaComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '900px';
-    dialogConfig.height = '600px';
     dialogConfig.data = data;
-
     this.dialog.open(UniversityDialogComponent, dialogConfig);
 
   }
   ngOnInit(): void {
-    console.log("I am init")
   }
 
 }

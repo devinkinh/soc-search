@@ -9,6 +9,7 @@ export class GetQueryResultsService {
 
   // call cloud function that does check against elastic search 
   elasticSearch(queryTerm:string){
+    
     const callable = this.afFunctions.httpsCallable('uniQuery');
     const elasticData = callable({ uniQuery: queryTerm });
 

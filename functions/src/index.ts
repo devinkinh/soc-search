@@ -26,7 +26,8 @@ export const uniQuery = functions.https.onRequest((req, res) => {
         body: {
                 "query": {
                     "query_string": {
-                        "query": req.body.data['uniQuery']
+                        "query": req.body.data['uniQuery'],
+                        "fields":["ADDR","INSTNM"]
                     }
                 }
         },
