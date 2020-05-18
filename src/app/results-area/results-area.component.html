@@ -25,11 +25,8 @@
       <mat-toolbar>No data found matching query "{{queryTerm}}"</mat-toolbar>
     </div>
  
-    <mat-paginator [length]="length" [pageSize]="10" (page)="pageEvent = $event;pageIndex = $event.pageIndex">
+    <mat-paginator #pager [length]="length" [pageSize]="10" (page)="pageEvent = $event;pageIndex = $event.pageIndex">
     </mat-paginator>
 
   </mat-card-content>
-
-
-
 </mat-card>

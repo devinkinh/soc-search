@@ -35,7 +35,7 @@ def loadCsv():
 
     header = None;
     count = 0
-    for row in  csv.reader(ufh, doublequote=True, quoting=csv.QUOTE_ALL, escapechar='\\'):
+    for row in csv.reader(ufh, doublequote=True, quoting=csv.QUOTE_ALL, escapechar='\\'):
         if header == None:
             header = row
         else:
