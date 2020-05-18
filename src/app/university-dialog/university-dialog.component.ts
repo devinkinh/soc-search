@@ -1,34 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import {ChangeDetectorRef} from '@angular/core'
 
-export interface DialogData {
-  ADDR: string,
-  ADMINURL: string,
-  APPLURL: string,
-  ATHURL: string,
-  CARNEGIE: string,
-  CHFNM: string,
-  CHFTITLE: string,
-  CITY: string,
-  CNGDSTCD: string,
-  COUNTYCD: string,
-  COUNTYNM: string,
-  DISAURL: string,
-  FAIDURL: string,
-  FIPS: string,
-  IALIAS: string,
-  INSTNM: string,
-  LATITUDE: string,
-  LONGITUD: string,
-  NPRICURL: string,
-  OBEREG: string,
-  STABBR: string,
-  UNITID: string
-  VETURL: string,
-  WEBADDR: string,
-  ZIP: string
-}
+
 @Component({
   templateUrl: './university-dialog.component.html',
   styleUrls: ['./university-dialog.component.css']
@@ -62,10 +35,8 @@ export class UniversityDialogComponent {
     WEBADDR: "Web Address ",
     ZIP: "Zip "
   }
-  cat = "helloworld";
   constructor(public dialogRef: MatDialogRef<UniversityDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data:DialogData) {
-      console.log(this.cat);
+    @Inject(MAT_DIALOG_DATA) public data:any) {
   }
 
   onNoClick(): void {

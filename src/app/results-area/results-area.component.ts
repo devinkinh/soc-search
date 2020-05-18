@@ -40,12 +40,16 @@ export class ResultsAreaComponent implements OnInit, OnChanges {
         } else {
           res.hits.hits.forEach((hit, idx) => {
             uniPage.push(hit._source);
-            if ((idx + 1) % 10 == 0) {
+            if ((idx+1) % 10 == 0 && idx != 0) {
+              this.uniIndex[n++] = uniPage;
+              uniPage = [];
+            } else if (idx == this.length -1){
               this.uniIndex[n++] = uniPage;
               uniPage = [];
             }
           });
         }
+        console.log(this.uniIndex)
         this.loading = false;
       });
     });
